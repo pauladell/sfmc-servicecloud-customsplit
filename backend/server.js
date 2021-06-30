@@ -1,16 +1,22 @@
 'use strict';
-
+//require module for wokring with paths
 const Path = require('path');
+//__dirname gives the absolute path
+//Save package.json in Pkg
 const Pkg = require(Path.join(__dirname, '..', 'package.json'));
 const express = require('express');
 
 // Helper utility for verifying and decoding the jwt sent from Salesforce Marketing Cloud.
+//jwt.js exports a function
 const verifyJwt = require(Path.join(__dirname, 'lib', 'jwt.js'));
 // Helper class that handles all the interactions with Salesforce Service Cloud
+//sfdc.js exports a class
 // and makes sure open connections are reused for subsequent requests.
+//Service Cloud instantiates the class in sfdc.js
 const ServiceCloud = require(Path.join(__dirname, 'lib', 'sfdc.js'));
+//retrieves the credentials
 const sfdc = new ServiceCloud(Pkg.options.salesforce.serviceCloud);
-
+//creates app
 const app = express();
 
 // Register middleware that parses the request payload.
